@@ -1,0 +1,129 @@
+body {
+background:#F5F5F5;
+color:#696969;
+font-family:"Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+font-size:80%;
+margin:0;
+padding:0
+}
+
+a:hover { color:#1d60ff; text-decoration:none }
+
+p { line-height:1.6em; margin-bottom:10px }
+
+h1,h2 {
+color:#666;
+font-size:1.5em;
+font-variant:small-caps;
+font-weight:200;
+margin-bottom:0;
+text-transform:none
+}
+
+h1 { font-size:1.6em; margin-bottom:0; padding-bottom:0 }
+h2 { font-size:1.5em; font-weight:600 }
+
+.page {
+background-color:#fff;
+border:1px solid #6FB554;
+margin:20px auto 0;
+width:960px
+}
+
+.header {
+background:#6FB554;
+margin:0;
+padding:0;
+position:relative;
+width:100%
+}
+
+.header h1 {
+border:none;
+color:#f9f9f9;
+font-size:2em;
+font-weight:700;
+line-height:2em;
+margin:0;
+padding:0 0 0 20px
+}
+
+.main {
+margin:12px 8px 8px;
+min-height:420px;
+padding:0 12px
+}
+
+fieldset {
+border:1px solid #ccc;
+margin:1em 0;
+padding:1em
+}
+
+fieldset p { margin:2px 12px 10px 10px }
+
+fieldset.login label,fieldset.register label,fieldset.changePassword label { display:block }
+
+fieldset label.inline { display:inline }
+
+legend {
+font-size:1.1em;
+font-weight:600;
+padding:2px 4px 8px
+}
+
+.clear { clear:both }
+
+.title {
+display:block;
+float:left;
+text-align:left;
+width:auto
+}
+
+.loginDisplay {
+color:#FFF;
+display:block;
+font-size:1.1em;
+padding:10px;
+text-align:right
+}
+
+.failureNotification { color:Red; font-size:1.2em }
+
+.bold { font-weight:700 }
+
+.submitButton { padding-right:10px; text-align:right }
+
+.on { font-size:5em; }
+
+.socialLogin { overflow:hidden }
+
+.socialLogin a {
+background:url(../Img/socialLogin.png) no-repeat scroll 0 0 transparent;
+display:block;
+float:left;
+height:37px;
+margin:20px 10px;
+text-indent:-10000px;
+width:95px
+}
+
+.socialLogin .f { background-position:0 -78px }
+.socialLogin .g { background-position:0 -118px }
+.socialLogin .m { background-position:-192px -118px }
+.socialLogin .y { background-position:-96px -118px }
+.socialLogin .t { background-position:-96px -78px }
+.socialLogin .f:hover { background-position:0 0 }
+.socialLogin .g:hover { background-position:0 -40px }
+.socialLogin .m:hover { background-position:-192px -40px }
+.socialLogin .y:hover { background-position:-96px -40px }
+.socialLogin .t:hover { background-position:-96px 0 }
+
+a:link,a:visited,a:active { color:#034af3 }
+
+input.textEntry,input.passwordEntry { border:1px solid #ccc; width:320px }
+
+.loginDisplay a:link,.loginDisplay a:visited,.loginDisplay a:hover { color:#FFF }
+
+.warning { color:#A00; padding:0 10px; }

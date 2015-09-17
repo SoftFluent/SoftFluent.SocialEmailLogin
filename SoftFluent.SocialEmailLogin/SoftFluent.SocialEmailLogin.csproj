@@ -30,11 +30,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SoftFluent.SocialEmailLogin.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CodeFluent.Runtime.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1bb6d7cccf1045ec, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CodeFluentRuntimeClient.1.0.0.818\lib\CodeFluent.Runtime.Client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -42,33 +44,35 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AuthenticationElement.cs" />
-    <Compile Include="Configuration\ServiceProvider.cs" />
-    <Compile Include="Configuration\ServiceProviderCollection.cs" />
+    <Compile Include="Configuration\ServiceProviderElement.cs" />
+    <Compile Include="Configuration\ServiceProviderElementCollection.cs" />
     <Compile Include="Configuration\SocialEmailLoginSection.cs" />
+    <Compile Include="Utilities\ConvertUtilities.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Office365ServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\Callback\AuthCallbackHandler.cs" />
-    <Compile Include="Web\Security\AuthException.cs" />
-    <Compile Include="Web\Security\AuthLoginOptions.cs" />
-    <Compile Include="Web\Security\AuthProtocol.cs" />
-    <Compile Include="Web\Security\AuthServiceProvider.cs" />
-    <Compile Include="Web\Security\FacebookServiceProvider.cs" />
-    <Compile Include="Web\Security\GoogleServiceProvider.cs" />
-    <Compile Include="Web\Security\LinkedInServiceProvider.cs" />
-    <Compile Include="Web\Security\MicrosoftServiceProvider.cs" />
-    <Compile Include="Web\Security\TwitterServiceProvider.cs" />
-    <Compile Include="Web\Security\YahooServiceProvider.cs" />
+    <Compile Include="AuthCallbackHandler.cs" />
+    <Compile Include="AuthException.cs" />
+    <Compile Include="AuthLoginOptions.cs" />
+    <Compile Include="AuthProtocol.cs" />
+    <Compile Include="AuthServiceProvider.cs" />
+    <Compile Include="FacebookServiceProvider.cs" />
+    <Compile Include="GoogleServiceProvider.cs" />
+    <Compile Include="LinkedInServiceProvider.cs" />
+    <Compile Include="MicrosoftServiceProvider.cs" />
+    <Compile Include="TwitterServiceProvider.cs" />
+    <Compile Include="UserData.cs" />
+    <Compile Include="UserLocationStorageType.cs" />
+    <Compile Include="YahooServiceProvider.cs" />
+    <Compile Include="YammerServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="External\Readme.txt" />
-    <Content Include="External\x64\CodeFluent.Runtime.Compression.dll" />
-    <Content Include="External\x86\CodeFluent.Runtime.Compression.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="SoftFluent.SocialEmailLogin.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

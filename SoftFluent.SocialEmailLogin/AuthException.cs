@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace SoftFluent.SocialEmailLogin.Web.Security
+namespace SoftFluent.SocialEmailLogin
 {
     [Serializable]
     public class AuthException : Exception

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SoftFluent.SocialEmailLogin</id>
+    <version>1.0.0</version>
+    <authors>SoftFluent</authors>
+    <owners>SoftFluent</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/SoftFluent/SoftFluent.SocialEmailLogin</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This utility enables users to log in on your website using the single sign on capability.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright (C) 2005-2015 SoftFluent S.A.S. All rights reserved.</copyright>
+    <tags>Social Login OAuth OpenId OpenIdConnect Google Microsoft Facebook LinkedIn Yammer Twitter Office365</tags>
+  </metadata>
+</package>

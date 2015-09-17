@@ -1,16 +1,15 @@
 using System.Configuration;
-using SoftFluent.SocialEmailLogin.Web.Security;
 
 namespace SoftFluent.SocialEmailLogin.Configuration
 {
     public class AuthenticationElement : ConfigurationElement
     {
         [ConfigurationProperty("serviceProviders", IsDefaultCollection = false, IsRequired = false)]
-        public ServiceProviderCollection ServiceProviders
+        public ServiceProviderElementCollection ServiceProviders
         {
             get
             {
-                return (ServiceProviderCollection)this["serviceProviders"];
+                return (ServiceProviderElementCollection)this["serviceProviders"];
             }
         }
 
@@ -19,7 +18,7 @@ namespace SoftFluent.SocialEmailLogin.Configuration
             if (name == null)
                 return null;
 
-            foreach (ServiceProvider provider in ServiceProviders)
+            foreach (ServiceProviderElement provider in ServiceProviders)
             {
                 if ((provider.Name == name) && (provider.Enabled))
                     return provider.AuthServiceProvider;

@@ -1,11 +1,9 @@
 using System;
 using System.Configuration;
-using CodeFluent.Runtime.Utilities;
-using SoftFluent.SocialEmailLogin.Web.Security;
 
 namespace SoftFluent.SocialEmailLogin.Configuration
 {
-    public class ServiceProvider : ConfigurationElement
+    public class ServiceProviderElement : ConfigurationElement
     {
         private AuthServiceProvider _authServiceProvider;
 
@@ -121,6 +119,33 @@ namespace SoftFluent.SocialEmailLogin.Configuration
             }
         }
 
+        [ConfigurationProperty("successUrl")]
+        public string SuccessUrl
+        {
+            get
+            {
+                return (string)base["successUrl"];
+            }
+        }
+
+        [ConfigurationProperty("maintainUserLocation", DefaultValue = true)]
+        public bool MaintainUserLocation
+        {
+            get
+            {
+                return (bool)base["maintainUserLocation"];
+            }
+        }
+
+        [ConfigurationProperty("userLocationStorageType", DefaultValue = UserLocationStorageType.State)]
+        public UserLocationStorageType UserLocationStorageType
+        {
+            get
+            {
+                return (UserLocationStorageType)base["userLocationStorageType"];
+            }
+        }
+
         [ConfigurationProperty("enabled", IsRequired = false, DefaultValue = true)]
         public bool Enabled
         {
@@ -139,11 +164,11 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                     string typeName = TypeName;
                     if (string.IsNullOrEmpty(typeName))
                     {
-                        //SoftFluent.SocialEmailLogin.Web.Security.FacebookServiceProvider
+                        //SoftFluent.SocialEmailLogin.FacebookServiceProvider
                         typeName = typeof(AuthServiceProvider).Namespace + "." + Name + "ServiceProvider, " + typeof(AuthServiceProvider).Assembly;
                     }
 
-                    Type type = AssemblyUtilities.GetType(typeName, true);
+                    Type type = Type.GetType(typeName, true);
                     _authServiceProvider = Activator.CreateInstance(type) as AuthServiceProvider;
                     if (_authServiceProvider == null)
                         throw new Exception();

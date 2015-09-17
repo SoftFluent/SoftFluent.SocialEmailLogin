@@ -1,4 +1,4 @@
-namespace SoftFluent.SocialEmailLogin.Web.Security
+namespace SoftFluent.SocialEmailLogin
 {
     public enum AuthProtocol
     {

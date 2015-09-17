@@ -1,7 +1,7 @@
 <%@ Page Title="Home Page" Language="C#" AutoEventWireup="true" %>
 
 <%@ Import Namespace="SoftFluent.SocialEmailLogin.Configuration" %>
-<%@ Import Namespace="SoftFluent.SocialEmailLogin.Web.Security" %>
+<%@ Import Namespace="SoftFluent.SocialEmailLogin" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +49,8 @@
                     <asp:LinkButton ID="imgLoginLive" runat="server" CommandName="Microsoft" CssClass="m" OnClick="imgLogin_Click" Text="Microsoft" />
                     <asp:LinkButton ID="imgLoginYahoo" runat="server" CommandName="Yahoo" CssClass="y" OnClick="imgLogin_Click" Text="Yahoo" />
                     <asp:LinkButton ID="imgLoginTwitter" runat="server" CommandName="Twitter" CssClass="t" OnClick="imgLogin_Click" Text="Twitter" />
+                    <asp:LinkButton ID="ImgLoginLinkedIn" runat="server" CommandName="LinkedIn" CssClass="l" OnClick="imgLogin_Click" Text="LinkedIn" />
+                    <asp:LinkButton ID="ImgLoginYammer" runat="server" CommandName="Yammer" OnClick="imgLogin_Click" Text="Yammer" />
                 </div>
 
                 <% } %>

@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>SoftFluent.SocialEmailLogin</id>
-    <version>1.0.0</version>
+    <id>SocialEmailLogin</id>
+    <version>1.0.5</version>
     <authors>SoftFluent</authors>
     <owners>SoftFluent</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <iconUrl>http://www.softfluent.com/images/logos_sf/cflogo-32x32.png</iconUrl>
     <projectUrl>https://github.com/SoftFluent/SoftFluent.SocialEmailLogin</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>This utility enables users to log in on your website using the single sign on capability.</description>
+    <description>A library allowing the user to login via social networks such as Facebook, Google, Yahoo, Microsoft Live, LinkedIn and Twitter.</description>
     <releaseNotes></releaseNotes>
+    <language>en-US</language>
     <copyright>Copyright (C) 2005-2015 SoftFluent S.A.S. All rights reserved.</copyright>
-    <tags>Social Login OAuth OpenId OpenIdConnect Google Microsoft Facebook LinkedIn Yammer Twitter Office365</tags>
+    <tags>Utility Social Email Login Network</tags>
   </metadata>
 </package>

@@ -45,14 +45,5 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                 return (AuthenticationElement)this["authentication"];
             }
         }
-
-        [ConfigurationProperty("updateUserLastActivity", IsRequired = false, DefaultValue = true)]
-        public bool UpdateUserLastActivity
-        {
-            get
-            {
-                return (bool)base["updateUserLastActivity"];
-            }
-        }
     }
 }

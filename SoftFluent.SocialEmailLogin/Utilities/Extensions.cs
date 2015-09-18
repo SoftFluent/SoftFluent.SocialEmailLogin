@@ -79,7 +79,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
             return defaultValue;
         }
-        
+
         public static IDictionary<string, string> ParseQueryString(string queryString)
         {
             IDictionary<string, string> result = new Dictionary<string, string>();
@@ -130,6 +130,9 @@ namespace SoftFluent.SocialEmailLogin.Utilities
             StringBuilder sb = new StringBuilder();
             foreach (var value in values)
             {
+                if (value.Value == null)
+                    continue;
+
                 if (!first)
                 {
                     sb.Append('&');

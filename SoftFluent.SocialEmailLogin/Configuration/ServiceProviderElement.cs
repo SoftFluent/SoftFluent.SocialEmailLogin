@@ -162,18 +162,24 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                 if (_authServiceProvider == null)
                 {
                     string typeName = TypeName;
-                    if (string.IsNullOrEmpty(typeName))
+                    Type type = Type.GetType(typeName, false);
+                    if (type == null)
                     {
-                        //SoftFluent.SocialEmailLogin.FacebookServiceProvider
-                        typeName = typeof(AuthServiceProvider).Namespace + "." + Name + "ServiceProvider, " + typeof(AuthServiceProvider).Assembly;
+                        if (string.IsNullOrEmpty(typeName))
+                        {
+                            //SoftFluent.SocialEmailLogin.FacebookServiceProvider
+                            typeName = typeof(AuthServiceProvider).Namespace + "." + Name + "ServiceProvider, " + typeof(AuthServiceProvider).Assembly;
+                        }
+
+                        type = Type.GetType(typeName, true);
                     }
 
-                    Type type = Type.GetType(typeName, true);
                     _authServiceProvider = Activator.CreateInstance(type) as AuthServiceProvider;
                     if (_authServiceProvider == null)
                         throw new Exception();
 
                     _authServiceProvider.Name = Name;
+                    _authServiceProvider.UserLocationStorageType = UserLocationStorageType;
 
                     if (Protocol != AuthProtocol.Undefined)
                     {

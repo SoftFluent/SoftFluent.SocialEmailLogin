@@ -1,2 +1,2 @@
 nuget setApiKey %nuget-apikey%
-nuget push SoftFluent.SocialEmailLogin.1.0.5.nupkg
+nuget push SocialEmailLogin.1.0.5.nupkg

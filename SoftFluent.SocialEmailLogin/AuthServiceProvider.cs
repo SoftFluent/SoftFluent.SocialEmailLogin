@@ -2,6 +2,7 @@ using SoftFluent.SocialEmailLogin.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -338,29 +339,30 @@ namespace SoftFluent.SocialEmailLogin
                 headers.Add("scope", Scope);
             }
 
+            var state = State.ToDictionary(kvp => kvp.Key, kvp => kvp.Value); // Clone the default state
             if (UserLocationStorageType == UserLocationStorageType.State)
             {
-                State[ProviderParameter] = Name;
-                State[OptionsParameter] = (int)LoginOptions;
+                state[ProviderParameter] = Name;
+                state[OptionsParameter] = (int)LoginOptions;
 
                 if (MaintainUserLocation)
                 {
                     string ru = HttpContext.Current.Request.QueryString[ReturnUrlParameter];
                     if (IsUrlLocalToHost(ru))
                     {
-                        State[UrlParameter] = ru;
+                        state[UrlParameter] = ru;
                     }
                     else if (IsUrlLocalToHost(SuccessUrl))
                     {
-                        State[UrlParameter] = SuccessUrl;
+                        state[UrlParameter] = SuccessUrl;
                     }
                 }
             }
 
 
-            if (State.Count > 0)
+            if (state.Count > 0)
             {
-                headers.Add("state", HttpUtility.UrlEncode((Extensions.JsonSerialize(State))));
+                headers.Add("state", HttpUtility.UrlEncode((Extensions.JsonSerialize(state))));
             }
             headers.Add("redirect_uri", GetRedirectUri());
             OnAfterCreateLoginOAuth20Headers(headers);

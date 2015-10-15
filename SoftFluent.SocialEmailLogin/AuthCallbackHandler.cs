@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Security;
 using SoftFluent.SocialEmailLogin.Utilities;
+using System.Threading;
 
 namespace SoftFluent.SocialEmailLogin
 {
@@ -20,7 +21,12 @@ namespace SoftFluent.SocialEmailLogin
 
         protected virtual AuthServiceProvider GetServiceProvider(string providerName)
         {
-            return SocialEmailLoginSection.Current.Authentication.GetServiceProvider(providerName);
+            return GetAuthenticationElement().GetServiceProvider(providerName);
+        }
+
+        protected virtual AuthenticationElement GetAuthenticationElement()
+        {
+            return SocialEmailLoginSection.Current.Authentication;
         }
 
         public virtual void ProcessRequest(HttpContext context)
@@ -33,16 +39,47 @@ namespace SoftFluent.SocialEmailLogin
             if (providerName == null)
                 return;
 
+            AuthenticationElement authenticationElement = GetAuthenticationElement();
             AuthServiceProvider provider = GetServiceProvider(providerName);
             if (provider == null)
                 return;
 
             AuthLoginOptions loginOptions = ConvertUtilities.ChangeType(GetValue(context, state, AuthServiceProvider.OptionsParameter), AuthLoginOptions.None);
-            UserData userData = provider.GetUserData(context);
+            
+            int attempt = 0;
+            UserData userData = null;
+            while (attempt < authenticationElement.MaximumRetryCount)
+            {
+                try
+                {
+                    userData = provider.GetUserData(context);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    if (!OnGetUserDataError(ex, attempt))
+                        break;
+
+                    attempt++;
+                    if (authenticationElement.RetryInterval > 0)
+                    {
+                        Thread.Sleep(authenticationElement.RetryInterval);
+                    }
+                }
+            }
+
             if (userData == null)
                 return;
 
             Authenticate(context, provider, loginOptions, userData);
+        }
+
+        protected virtual bool OnGetUserDataError(Exception ex, int attempt)
+        {
+            if (ex is WebException)
+                return true;
+
+            return false;
         }
 
         protected virtual bool Authenticate(HttpContext context, AuthServiceProvider provider, AuthLoginOptions options, UserData userData)

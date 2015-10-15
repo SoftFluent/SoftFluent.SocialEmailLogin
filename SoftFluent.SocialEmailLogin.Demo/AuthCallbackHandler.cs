@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 using System.Web;
+using System.Diagnostics;
 
 namespace SoftFluent.SocialEmailLogin.Demo
 {
@@ -41,6 +42,7 @@ namespace SoftFluent.SocialEmailLogin.Demo
 
             return true;
         }
+
         private static HttpCookie GetAuthCookie(string userName, bool createPersistentCookie, bool httpOnly)
         {
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(2, userName, DateTime.Now, DateTime.Now.Add(FormsAuthentication.Timeout), createPersistentCookie, "SoftFluent.SocialEmailLogin", FormsAuthentication.FormsCookiePath);
@@ -69,5 +71,10 @@ namespace SoftFluent.SocialEmailLogin.Demo
             return cookie;
         }
 
+        protected override bool OnGetUserDataError(Exception ex, int attempt)
+        {
+            Trace.WriteLine($"Attempt {attempt}: {ex}");
+            return base.OnGetUserDataError(ex, attempt);
+        }
     }
 }

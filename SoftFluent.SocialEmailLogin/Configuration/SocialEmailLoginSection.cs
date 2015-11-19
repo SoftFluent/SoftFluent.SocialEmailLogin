@@ -25,12 +25,16 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                 }
                 return _current;
             }
+            set
+            {
+                _current = value;
+            }
         }
 
         public static SocialEmailLoginSection Get(XmlReader reader)
         {
             if (reader == null)
-                return Current;
+                throw new ArgumentNullException("reader");
 
             SocialEmailLoginSection section = new SocialEmailLoginSection();
             section.DeserializeSection(reader);

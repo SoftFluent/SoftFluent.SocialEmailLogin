@@ -10,7 +10,8 @@ namespace SoftFluent.SocialEmailLogin
 
         public UserData(IDictionary<string, object> data)
         {
-            if (data == null) throw new ArgumentNullException(nameof(data));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
 
             _data = data;
         }
@@ -35,9 +36,7 @@ namespace SoftFluent.SocialEmailLogin
                 if (_fullName == null)
                 {
                     if (FirstName != null && LastName != null)
-                    {
                         return FirstName + " " + LastName;
-                    }
 
                     if (FirstName != null)
                         return FirstName;

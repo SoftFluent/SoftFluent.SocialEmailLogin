@@ -1,11 +1,11 @@
 using System;
-using System.Web;
-using SoftFluent.SocialEmailLogin.Configuration;
 using System.Collections.Generic;
 using System.Net;
-using System.Web.Security;
-using SoftFluent.SocialEmailLogin.Utilities;
 using System.Threading;
+using System.Web;
+using System.Web.Security;
+using SoftFluent.SocialEmailLogin.Configuration;
+using SoftFluent.SocialEmailLogin.Utilities;
 
 namespace SoftFluent.SocialEmailLogin
 {

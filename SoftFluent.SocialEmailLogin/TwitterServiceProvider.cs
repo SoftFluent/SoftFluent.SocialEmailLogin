@@ -1,9 +1,9 @@
-using SoftFluent.SocialEmailLogin.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Web;
+using SoftFluent.SocialEmailLogin.Utilities;
 
 namespace SoftFluent.SocialEmailLogin
 {

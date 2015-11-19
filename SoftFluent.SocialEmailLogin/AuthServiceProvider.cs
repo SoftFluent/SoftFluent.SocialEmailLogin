@@ -1,4 +1,3 @@
-using SoftFluent.SocialEmailLogin.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Xml;
+using SoftFluent.SocialEmailLogin.Utilities;
 
 namespace SoftFluent.SocialEmailLogin
 {

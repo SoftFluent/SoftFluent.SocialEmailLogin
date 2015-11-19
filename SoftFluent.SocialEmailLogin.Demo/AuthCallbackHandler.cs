@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace SoftFluent.SocialEmailLogin.Demo
 {
-    public class AuthCallbackHandler : SoftFluent.SocialEmailLogin.AuthCallbackHandler
+    public class AuthCallbackHandler : SocialEmailLogin.AuthCallbackHandler
     {
         protected override bool Authenticate(HttpContext context, AuthServiceProvider provider, AuthLoginOptions options, UserData userData)
         {

@@ -52,6 +52,7 @@
     <Compile Include="Configuration\ServiceProviderElement.cs" />
     <Compile Include="Configuration\ServiceProviderElementCollection.cs" />
     <Compile Include="Configuration\SocialEmailLoginSection.cs" />
+    <Compile Include="Properties\AssemblyVersionInfo.cs" />
     <Compile Include="Utilities\ConvertUtilities.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Office365ServiceProvider.cs" />

@@ -60,6 +60,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SoftFluent.SocialEmailLogin\Properties\AssemblyVersionInfo.cs">
+      <Link>Properties\AssemblyVersionInfo.cs</Link>
+    </Compile>
     <Compile Include="AuthCallbackHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

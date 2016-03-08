@@ -45,7 +45,7 @@ namespace SoftFluent.SocialEmailLogin
                 return;
 
             AuthLoginOptions loginOptions = ConvertUtilities.ChangeType(GetValue(context, state, AuthServiceProvider.OptionsParameter), AuthLoginOptions.None);
-            
+
             int attempt = 0;
             UserData userData = null;
             while (attempt < authenticationElement.MaximumRetryCount)
@@ -100,6 +100,20 @@ namespace SoftFluent.SocialEmailLogin
             else
             {
                 url = context.Request[AuthServiceProvider.UrlParameter].Nullify(trim: true);
+            }
+
+            if (string.IsNullOrEmpty(url))
+            {
+                string providerName = GetValue(context, state, AuthServiceProvider.ProviderParameter) as string;
+                if (providerName != null)
+                {
+                    AuthenticationElement authenticationElement = GetAuthenticationElement();
+                    AuthServiceProvider provider = GetServiceProvider(providerName);
+                    if (provider != null)
+                    {
+                        url = provider.SuccessUrl;
+                    }
+                }
             }
 
             if (string.IsNullOrEmpty(url))

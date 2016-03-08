@@ -218,6 +218,11 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                     {
                         _authServiceProvider.DiscoveryUrl = DiscoveryUrl;
                     }
+
+                    if (!string.IsNullOrEmpty(SuccessUrl))
+                    {
+                        _authServiceProvider.SuccessUrl = SuccessUrl;
+                    }
                 }
                 return _authServiceProvider;
             }

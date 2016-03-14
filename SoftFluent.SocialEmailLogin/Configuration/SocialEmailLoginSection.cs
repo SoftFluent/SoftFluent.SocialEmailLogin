@@ -21,7 +21,7 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                 {
                     _current = ConfigurationManager.GetSection(SectionName) as SocialEmailLoginSection;
                     if (_current == null)
-                        throw new Exception("Missing '" + SectionName + "' section in " + AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                        throw new AuthException("OA0008: Missing '" + SectionName + "' section in " + AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
                 }
                 return _current;
             }
@@ -34,9 +34,9 @@ namespace SoftFluent.SocialEmailLogin.Configuration
         public static SocialEmailLoginSection Get(XmlReader reader)
         {
             if (reader == null)
-                throw new ArgumentNullException("reader");
+                throw new ArgumentNullException(nameof(reader));
 
-            SocialEmailLoginSection section = new SocialEmailLoginSection();
+            var section = new SocialEmailLoginSection();
             section.DeserializeSection(reader);
             return section;
         }

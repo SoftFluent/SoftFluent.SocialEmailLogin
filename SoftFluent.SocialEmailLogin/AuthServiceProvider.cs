@@ -71,14 +71,14 @@ namespace SoftFluent.SocialEmailLogin
 
             string denied = context.Request["denied"];
             if (!string.IsNullOrEmpty(denied))
-                throw new AuthException("OA0007: User has denied access.");
+                throw new AuthException("OA0010: User has denied access.");
 
         }
 
         public virtual UserData GetUserData(HttpContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             ThrowOnCallbackError(context);
 
@@ -98,7 +98,7 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual UserData GetUserDataOpenIdOAuth(HttpContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             // we need to check it's a good answer coming from the openid provider, and not an XSRF attack, before we can consume the email
 
@@ -115,9 +115,9 @@ namespace SoftFluent.SocialEmailLogin
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(UserLoginUrl);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            using (Stream stream = request.GetRequestStream())
+            using (var stream = request.GetRequestStream())
             {
-                using (StreamWriter writer = new StreamWriter(stream))
+                using (var writer = new StreamWriter(stream))
                 {
                     int i = 0;
                     foreach (string key in context.Request.QueryString)
@@ -160,13 +160,13 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual string GetAccessTokenOAuth20(HttpContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             string code = context.Request["code"];
             if (string.IsNullOrEmpty(code))
                 return null;
 
-            Dictionary<string, string> headers = new Dictionary<string, string>();
+            var headers = new Dictionary<string, string>();
             headers.Add("client_id", ConsumerKey);
             headers.Add("client_secret", ConsumerSecret);
             headers.Add("code", code);
@@ -210,7 +210,7 @@ namespace SoftFluent.SocialEmailLogin
                 object at;
                 if (res != null && res.TryGetValue("access_token", out at))
                 {
-                    IDictionary<string, object> accessToken = at as IDictionary<string, object>;
+                    var accessToken = at as IDictionary<string, object>;
                     if (accessToken != null) // Yammer
                     {
                         if (accessToken.TryGetValue("token", out at))
@@ -251,7 +251,7 @@ namespace SoftFluent.SocialEmailLogin
 
             string redirectUri = absoluteApplicationPath + RequestCallback;
 
-            UriBuilder uriBuilder = new UriBuilder(redirectUri);
+            var uriBuilder = new UriBuilder(redirectUri);
             if (UserLocationStorageType == UserLocationStorageType.RedirectUri)
             {
                 var queryStringValues = Extensions.ParseQueryString(uriBuilder.Query);
@@ -331,7 +331,7 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual void LoginOAuth20()
         {
             // http://openid.net/specs/openid-authentication-2_0.html
-            Dictionary<string, string> headers = new Dictionary<string, string>();
+            var headers = new Dictionary<string, string>();
             headers.Add("client_id", ConsumerKey);
             headers.Add("response_type", OAuth2ResponseType);
             if (!string.IsNullOrEmpty(Scope))
@@ -379,7 +379,7 @@ namespace SoftFluent.SocialEmailLogin
             }
 
             // http://openid.net/specs/openid-authentication-2_0.html
-            Dictionary<string, string> headers = new Dictionary<string, string>();
+            var headers = new Dictionary<string, string>();
             headers.Add("openid.ns", "http://specs.openid.net/auth/2.0");
             headers.Add("openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select");
             headers.Add("openid.identity", "http://specs.openid.net/auth/2.0/identifier_select");
@@ -410,16 +410,18 @@ namespace SoftFluent.SocialEmailLogin
         // http://openid.net/specs/openid-authentication-2_0.html#html_disco
         protected virtual void DiscoverOpenId()
         {
-            WebClient wc = new WebClient();
-            string xrds = wc.DownloadString(DiscoveryUrl);
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xrds);
-            XmlNamespaceManager mgr = new XmlNamespaceManager(new NameTable());
-            mgr.AddNamespace("x", "xri://$xrd*($v*2.0)");
-            XmlNode node = doc.SelectSingleNode("//x:URI", mgr);
-            if (node != null)
+            using (var wc = new WebClient())
             {
-                UserLoginUrl = node.InnerText;
+                string xrds = wc.DownloadString(DiscoveryUrl);
+                var doc = new XmlDocument();
+                doc.LoadXml(xrds);
+                var mgr = new XmlNamespaceManager(new NameTable());
+                mgr.AddNamespace("x", "xri://$xrd*($v*2.0)");
+                XmlNode node = doc.SelectSingleNode("//x:URI", mgr);
+                if (node != null)
+                {
+                    UserLoginUrl = node.InnerText;
+                }
             }
         }
 
@@ -433,11 +435,11 @@ namespace SoftFluent.SocialEmailLogin
         {
             try
             {
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    using (var stream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        using (var reader = new StreamReader(stream))
                         {
                             contentType = response.ContentType;
                             return reader.ReadToEnd();
@@ -450,7 +452,7 @@ namespace SoftFluent.SocialEmailLogin
                 string text = null;
                 if (we.Response != null)
                 {
-                    using (StreamReader reader = new StreamReader(we.Response.GetResponseStream()))
+                    using (var reader = new StreamReader(we.Response.GetResponseStream()))
                     {
                         text = reader.ReadToEnd();
                     }
@@ -470,7 +472,7 @@ namespace SoftFluent.SocialEmailLogin
 
         public static string SerializeOAuthHeaders(IEnumerable<KeyValuePair<string, string>> headers, string method, bool encode)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (method == "POST")
             {
                 foreach (var header in headers)
@@ -505,9 +507,8 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual void LoginOAuth10a()
         {
             string method = "POST";
-            //method = "GET";
 
-            Dictionary<string, string> headers = new Dictionary<string, string>();
+            var headers = new Dictionary<string, string>();
             headers["oauth_consumer_key"] = ConsumerKey;
             headers["oauth_signature_method"] = "HMAC-SHA1";
             headers["oauth_timestamp"] = BuildOAuthTimestamp();
@@ -529,11 +530,11 @@ namespace SoftFluent.SocialEmailLogin
 
             try
             {
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    using (var stream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        using (var reader = new StreamReader(stream))
                         {
                             var qs = Extensions.ParseQueryString(reader.ReadToEnd());
                             if (!qs.GetValue("oauth_callback_confirmed", false))
@@ -551,7 +552,7 @@ namespace SoftFluent.SocialEmailLogin
                 string text = null;
                 if (we.Response != null)
                 {
-                    using (StreamReader reader = new StreamReader(we.Response.GetResponseStream()))
+                    using (var reader = new StreamReader(we.Response.GetResponseStream()))
                     {
                         text = reader.ReadToEnd();
                     }
@@ -559,7 +560,7 @@ namespace SoftFluent.SocialEmailLogin
                 if (string.IsNullOrEmpty(text))
                     throw;
 
-                throw new AuthException("OA0002: An OAuth error has occured. " + text, we);
+                throw new AuthException("OA0009: An OAuth error has occured. " + text, we);
             }
         }
 
@@ -574,7 +575,7 @@ namespace SoftFluent.SocialEmailLogin
             if (name == null)
                 return null;
 
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (char c in name)
             {
                 if (UnreservedCharacterSet.IndexOf(c) != -1)
@@ -616,17 +617,16 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual string SignOAuthRequest(string method, string uri, IDictionary<string, string> headers, string tokenSecret)
         {
             if (method == null)
-                throw new ArgumentNullException("method");
+                throw new ArgumentNullException(nameof(method));
 
             if (uri == null)
-                throw new ArgumentNullException("uri");
+                throw new ArgumentNullException(nameof(uri));
 
-            StringBuilder sb = new StringBuilder(method.ToUpperInvariant());
-
+            var sb = new StringBuilder(method.ToUpperInvariant());
             sb.Append('&');
             sb.Append(EncodeParameter(uri));
 
-            List<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>(headers);
+            var parameters = new List<KeyValuePair<string, string>>(headers);
             parameters.Sort(new QueryParameterComparer());
 
             string sparams = null;
@@ -642,7 +642,7 @@ namespace SoftFluent.SocialEmailLogin
             sb.Append('&');
             sb.Append(EncodeParameter(sparams));
 
-            HMACSHA1 hash = new HMACSHA1();
+            var hash = new HMACSHA1();
             hash.Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", EncodeParameter(ConsumerSecret), EncodeParameter(tokenSecret)));
             return Convert.ToBase64String(hash.ComputeHash(Encoding.ASCII.GetBytes(sb.ToString())));
         }

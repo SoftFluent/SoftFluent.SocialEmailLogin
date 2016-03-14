@@ -32,7 +32,7 @@ namespace SoftFluent.SocialEmailLogin
         public virtual void ProcessRequest(HttpContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             var state = ReadStateQueryParameter(context);
             string providerName = GetValue(context, state, AuthServiceProvider.ProviderParameter) as string;
@@ -89,7 +89,8 @@ namespace SoftFluent.SocialEmailLogin
 
         protected virtual void RedirectSuccess(HttpContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
 
             string url = null;
             var state = ReadStateQueryParameter(context);
@@ -132,12 +133,12 @@ namespace SoftFluent.SocialEmailLogin
 
         protected virtual HttpCookie GetAuthCookie(string userName, bool createPersistentCookie, bool httpOnly, string userData)
         {
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(2, userName, DateTime.Now, DateTime.Now.Add(FormsAuthentication.Timeout), createPersistentCookie, userData, FormsAuthentication.FormsCookiePath);
+            var ticket = new FormsAuthenticationTicket(2, userName, DateTime.Now, DateTime.Now.Add(FormsAuthentication.Timeout), createPersistentCookie, userData, FormsAuthentication.FormsCookiePath);
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
             if (encryptedTicket == null || encryptedTicket.Length < 1)
                 throw new AuthException("OA0006: Failed to encrypt ticket.");
 
-            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
             cookie.HttpOnly = httpOnly;
             cookie.Path = FormsAuthentication.FormsCookiePath;
 
@@ -168,21 +169,19 @@ namespace SoftFluent.SocialEmailLogin
                     value = state[parameterName];
                 }
             }
-
             return value;
         }
 
         protected virtual IDictionary<string, object> ReadStateQueryParameter(HttpContext context)
         {
-            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
 
             try
             {
                 string st = context.Request.QueryString["state"];
                 if (!string.IsNullOrWhiteSpace(st))
-                {
                     return Extensions.JsonDeserialize(HttpUtility.UrlDecode(st));
-                }
             }
             catch
             {

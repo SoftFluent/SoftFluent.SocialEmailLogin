@@ -162,7 +162,7 @@ namespace SoftFluent.SocialEmailLogin.Configuration
                 if (_authServiceProvider == null)
                 {
                     string typeName = TypeName;
-                    Type type = Type.GetType(typeName, false);
+                    var type = Type.GetType(typeName, false);
                     if (type == null)
                     {
                         if (string.IsNullOrEmpty(typeName))

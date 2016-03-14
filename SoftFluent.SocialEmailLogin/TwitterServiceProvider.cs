@@ -22,11 +22,11 @@ namespace SoftFluent.SocialEmailLogin
         public override UserData GetUserData(HttpContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             string method = "POST";
 
-            Dictionary<string, string> headers = new Dictionary<string, string>();
+            var headers = new Dictionary<string, string>();
             headers["oauth_consumer_key"] = ConsumerKey;
             headers["oauth_signature_method"] = "HMAC-SHA1";
             headers["oauth_timestamp"] = BuildOAuthTimestamp();
@@ -36,17 +36,17 @@ namespace SoftFluent.SocialEmailLogin
             headers["oauth_verifier"] = context.Request["oauth_verifier"];
             headers["oauth_signature"] = EncodeParameter(SignOAuthRequest(method, AccessTokenUrl, headers, null));
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(AccessTokenUrl);
+            var request = (HttpWebRequest)WebRequest.Create(AccessTokenUrl);
             request.Headers.Add("Authorization", "OAuth " + SerializeOAuthHeaders(headers, method));
             request.Method = method;
 
             try
             {
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    using (Stream stream = response.GetResponseStream())
+                    using (var stream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(stream))
+                        using (var reader = new StreamReader(stream))
                         {
                             IDictionary<string, object> data = new Dictionary<string, object>();
                             UserData userData = CreateUserData(data);
@@ -61,7 +61,7 @@ namespace SoftFluent.SocialEmailLogin
                 string text = null;
                 if (we.Response != null)
                 {
-                    using (StreamReader reader = new StreamReader(we.Response.GetResponseStream()))
+                    using (var reader = new StreamReader(we.Response.GetResponseStream()))
                     {
                         text = reader.ReadToEnd();
                     }
@@ -72,7 +72,7 @@ namespace SoftFluent.SocialEmailLogin
                     throw new AuthException("OA0002: An OAuth error has occured. " + text, we);
                 }
 
-                throw new AuthException("OA0006: Unable to retrieve the user's screen_name.");
+                throw new AuthException("OA0011: Unable to retrieve the user's screen_name.");
             }
         }
     }

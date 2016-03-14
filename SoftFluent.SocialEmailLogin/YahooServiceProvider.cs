@@ -18,7 +18,6 @@ namespace SoftFluent.SocialEmailLogin
         {
             headers.Add("openid.ax.type.fullname", "http://axschema.org/namePerson");
             headers.Add("openid.ax.type.nickname", "http://axschema.org/namePerson/friendly");
-
             base.SetOpenIdOAuthAttributes(headers);
         }
 
@@ -27,7 +26,7 @@ namespace SoftFluent.SocialEmailLogin
             if (httpRequest == null)
                 return null;
 
-            IDictionary<string, object> data = new Dictionary<string, object>();
+            var data = new Dictionary<string, object>();
             foreach (string key in httpRequest.QueryString.AllKeys.Where(key => key.StartsWith("openid.")))
             {
                 data[key] = DecodeUrlParameter(httpRequest.QueryString[key]);

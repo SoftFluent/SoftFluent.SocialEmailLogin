@@ -12,13 +12,13 @@ namespace SoftFluent.SocialEmailLogin.Utilities
     {
         private static byte GetHexaByte(char c)
         {
-            if ((c >= '0') && (c <= '9'))
+            if (c >= '0' && c <= '9')
                 return (byte)(c - '0');
 
-            if ((c >= 'A') && (c <= 'F'))
+            if (c >= 'A' && c <= 'F')
                 return (byte)(c - 'A' + 10);
 
-            if ((c >= 'a') && (c <= 'f'))
+            if (c >= 'a' && c <= 'f')
                 return (byte)(c - 'a' + 10);
 
             return 0xFF;
@@ -32,7 +32,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return true;
             }
 
-            List<byte> list = new List<byte>();
+            var list = new List<byte>();
             bool lo = false;
             byte prev = 0;
             int offset;
@@ -189,7 +189,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out ulong value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -202,7 +202,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -213,7 +213,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out ushort value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -226,7 +226,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -237,7 +237,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out decimal value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -250,7 +250,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -261,7 +261,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out float value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -274,7 +274,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -286,7 +286,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         private static bool TryConvert(object input, IFormatProvider provider, out double value)
         {
             value = 0;
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -299,7 +299,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -310,7 +310,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out char value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -329,7 +329,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out DateTime value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -348,7 +348,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out uint value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -361,7 +361,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -372,7 +372,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out byte value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -385,7 +385,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -396,7 +396,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out sbyte value)
         {
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -409,7 +409,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -432,7 +432,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return false;
             }
 
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -445,7 +445,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -474,7 +474,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return true;
             }
 
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -487,7 +487,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -516,7 +516,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return true;
             }
 
-            IConvertible ic = input as IConvertible;
+            var ic = input as IConvertible;
             if (ic != null)
             {
                 try
@@ -529,7 +529,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 }
             }
 
-            NumberStyles styles = NumberStyles.Integer;
+            var styles = NumberStyles.Integer;
             string s = Convert.ToString(input, provider);
             if (NormalizeHexString(ref s))
             {
@@ -595,7 +595,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         public static bool TryConvert(object input, Type conversionType, IFormatProvider provider, out object value)
         {
             if (conversionType == null)
-                throw new ArgumentNullException("conversionType");
+                throw new ArgumentNullException(nameof(conversionType));
 
             if (conversionType == typeof(object))
             {
@@ -784,7 +784,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                     }
                     else
                     {
-                        TypeConverter tc = TypeDescriptor.GetConverter(inputType);
+                        var tc = TypeDescriptor.GetConverter(inputType);
                         if (tc != null && tc.CanConvertTo(typeof(string)))
                         {
                             value = (string)tc.ConvertTo(input, typeof(string));
@@ -1002,7 +1002,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
             try
             {
-                TypeConverter inputConverter = TypeDescriptor.GetConverter(inputType);
+                var inputConverter = TypeDescriptor.GetConverter(inputType);
                 if (inputConverter != null && inputConverter.CanConvertTo(conversionType))
                 {
                     value = inputConverter.ConvertTo(null, provider as CultureInfo, input, conversionType);
@@ -1052,9 +1052,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         {
             object result;
             if (TryConvert(input, typeof(T), provider, out result))
-            {
                 return (T)result;
-            }
 
             return defaultValue;
         }

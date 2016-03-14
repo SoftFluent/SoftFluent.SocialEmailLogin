@@ -16,7 +16,7 @@ namespace SoftFluent.SocialEmailLogin
 
         protected override HttpWebRequest CreateGetOAuth20Request(string accessToken)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ProfileUrl);
+            var request = (HttpWebRequest)WebRequest.Create(ProfileUrl);
             request.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + accessToken);
             return request;
         }

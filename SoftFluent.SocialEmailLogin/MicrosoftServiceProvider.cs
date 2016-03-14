@@ -46,7 +46,7 @@ namespace SoftFluent.SocialEmailLogin
 
             if (data.ContainsKey("emails"))
             {
-                Dictionary<string, object> emails = data["emails"] as Dictionary<string, object>;
+                var emails = data["emails"] as Dictionary<string, object>;
                 if (emails != null)
                 {
                     foreach (string emailKey in OrderedEmailKeys)

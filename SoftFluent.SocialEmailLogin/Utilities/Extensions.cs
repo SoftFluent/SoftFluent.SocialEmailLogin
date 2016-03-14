@@ -24,17 +24,16 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return string.Empty;
 
             if (offset < 0)
-                throw new ArgumentException(null, "offset");
+                throw new ArgumentException(null, nameof(offset));
 
             if (count < 0)
-                throw new ArgumentException(null, "count");
+                throw new ArgumentException(null, nameof(count));
 
             if (offset >= bytes.Length)
                 return string.Empty;
 
             count = Math.Min(count, bytes.Length - offset);
-
-            StringBuilder sb = new StringBuilder(count * 2);
+            var sb = new StringBuilder(count * 2);
             for (int i = offset; i < (offset + count); i++)
             {
                 sb.Append(_hexaChars[bytes[i] / 16]);
@@ -73,22 +72,21 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
             TValue v;
             if (dict.TryGetValue(name, out v))
-            {
                 return ConvertUtilities.ChangeType(v, defaultValue);
-            }
 
             return defaultValue;
         }
 
         public static IDictionary<string, string> ParseQueryString(string queryString)
         {
-            IDictionary<string, string> result = new Dictionary<string, string>();
-
+            var result = new Dictionary<string, string>();
             if (queryString == null)
                 return result;
 
             if (queryString.StartsWith("?"))
+            {
                 queryString = queryString.Substring(1);
+            }
 
             var parts = queryString.Split('&');
             foreach (var part in parts)
@@ -115,19 +113,18 @@ namespace SoftFluent.SocialEmailLogin.Utilities
             var parameters = ParseQueryString(uri);
             string value;
             if (parameters.TryGetValue(parameterName, out value))
-            {
                 return ConvertUtilities.ChangeType(value, defaultValue);
-            }
 
             return defaultValue;
         }
 
         public static string BuildQueryString(IDictionary<string, string> values)
         {
-            if (values == null) throw new ArgumentNullException(nameof(values));
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
 
             bool first = true;
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var value in values)
             {
                 if (value.Value == null)
@@ -149,14 +146,17 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         public static IDictionary<string, object> JsonDeserialize(string json)
         {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            if (json == null)
+                return null;
+
+            var serializer = new JavaScriptSerializer();
             object obj = serializer.Deserialize<object>(json);
             return obj as IDictionary<string, object>;
         }
 
         public static string JsonSerialize(object value)
         {
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var serializer = new JavaScriptSerializer();
             return serializer.Serialize(value);
         }
     }

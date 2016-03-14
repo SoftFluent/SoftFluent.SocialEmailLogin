@@ -15,7 +15,7 @@ namespace SoftFluent.SocialEmailLogin.Configuration
         protected override object GetElementKey(ConfigurationElement element)
         {
             if (element == null)
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
 
             return ((ServiceProviderElement)element).Name;
         }

@@ -46,6 +46,9 @@ namespace SoftFluent.SocialEmailLogin
         public string UserLoginUrl { get; protected set; } // determined by discovery
         public string OpenIdOAuthScope { get; set; }
 
+        public event EventHandler<HeadersEventArgs> AfterCreateLoginOAuth20Headers;
+        public event EventHandler<HeadersEventArgs> AfterCreateAccessTokenOAuth20Headers;
+
         public AuthServiceProvider()
         {
             RequestCallback = "requestcb.auth";
@@ -112,7 +115,7 @@ namespace SoftFluent.SocialEmailLogin
                     throw new AuthException("OA0003: Unable to determine OpenId user login url.");
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(UserLoginUrl);
+            var request = (HttpWebRequest)WebRequest.Create(UserLoginUrl);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             using (var stream = request.GetRequestStream())
@@ -153,6 +156,15 @@ namespace SoftFluent.SocialEmailLogin
             throw new NotImplementedException();
         }
 
+        protected virtual void OnAfterCreateAccessTokenOAuth20Headers(object sender, HeadersEventArgs e)
+        {
+            var handler = AfterCreateLoginOAuth20Headers;
+            if (handler != null)
+            {
+                handler(sender, e);
+            }
+        }
+
         protected virtual void OnAfterCreateAccessTokenOAuth20Headers(IDictionary<string, string> headers)
         {
         }
@@ -178,6 +190,7 @@ namespace SoftFluent.SocialEmailLogin
             }
             headers.Add("redirect_uri", GetRedirectUri());
             OnAfterCreateAccessTokenOAuth20Headers(headers);
+            OnAfterCreateAccessTokenOAuth20Headers(this, new HeadersEventArgs(context, headers));
 
             HttpWebRequest request;
             if (OAuth2AccessTokenMethod == "POST")
@@ -323,6 +336,15 @@ namespace SoftFluent.SocialEmailLogin
             }
         }
 
+        protected virtual void OnAfterCreateLoginOAuth20Headers(object sender, HeadersEventArgs e)
+        {
+            var handler = AfterCreateLoginOAuth20Headers;
+            if (handler != null)
+            {
+                handler(sender, e);
+            }
+        }
+
         protected virtual void OnAfterCreateLoginOAuth20Headers(IDictionary<string, string> headers)
         {
         }
@@ -366,6 +388,7 @@ namespace SoftFluent.SocialEmailLogin
             }
             headers.Add("redirect_uri", GetRedirectUri());
             OnAfterCreateLoginOAuth20Headers(headers);
+            OnAfterCreateLoginOAuth20Headers(this, new HeadersEventArgs(HttpContext.Current, headers));
             HttpContext.Current.Response.Redirect(UserAuthorizationUrl + "?" + SerializeOAuthHeaders(headers, null, true), false);
         }
 

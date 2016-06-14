@@ -8,13 +8,7 @@ namespace SoftFluent.SocialEmailLogin.Configuration
         private AuthServiceProvider _authServiceProvider;
 
         [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
-        public string Name
-        {
-            get
-            {
-                return (string)base["name"];
-            }
-        }
+        public string Name => (string)base["name"];
 
         [ConfigurationProperty("displayName", IsRequired = false)]
         public string DisplayName
@@ -30,130 +24,46 @@ namespace SoftFluent.SocialEmailLogin.Configuration
         }
 
         [ConfigurationProperty("typeName", IsRequired = false)]
-        public string TypeName
-        {
-            get
-            {
-                return (string)base["typeName"];
-            }
-        }
+        public string TypeName => (string)base["typeName"];
 
         [ConfigurationProperty("consumerKey", IsRequired = false)]
-        public string ConsumerKey
-        {
-            get
-            {
-                return (string)base["consumerKey"];
-            }
-        }
+        public string ConsumerKey => (string)base["consumerKey"];
 
         [ConfigurationProperty("consumerSecret", IsRequired = false)]
-        public string ConsumerSecret
-        {
-            get
-            {
-                return (string)base["consumerSecret"];
-            }
-        }
+        public string ConsumerSecret => (string)base["consumerSecret"];
 
         [ConfigurationProperty("fakeEmailDomain", IsRequired = false)]
-        public string FakeEmailDomain
-        {
-            get
-            {
-                return (string)base["fakeEmailDomain"];
-            }
-        }
+        public string FakeEmailDomain => (string)base["fakeEmailDomain"];
 
         [ConfigurationProperty("requestTokenUrl", IsRequired = false)]
-        public string RequestTokenUrl
-        {
-            get
-            {
-                return (string)base["requestTokenUrl"];
-            }
-        }
+        public string RequestTokenUrl => (string)base["requestTokenUrl"];
 
         [ConfigurationProperty("userAuthorizationUrl", IsRequired = false)]
-        public string UserAuthorizationUrl
-        {
-            get
-            {
-                return (string)base["userAuthorizationUrl"];
-            }
-        }
+        public string UserAuthorizationUrl => (string)base["userAuthorizationUrl"];
 
         [ConfigurationProperty("discoveryUrl", IsRequired = false)]
-        public string DiscoveryUrl
-        {
-            get
-            {
-                return (string)base["discoveryUrl"];
-            }
-        }
+        public string DiscoveryUrl => (string)base["discoveryUrl"];
 
         [ConfigurationProperty("requestCallback", IsRequired = false)]
-        public string RequestCallback
-        {
-            get
-            {
-                return (string)base["requestCallback"];
-            }
-        }
+        public string RequestCallback => (string)base["requestCallback"];
 
         [ConfigurationProperty("scope", IsRequired = false)]
-        public string Scope
-        {
-            get
-            {
-                return (string)base["scope"];
-            }
-        }
+        public string Scope => (string)base["scope"];
 
         [ConfigurationProperty("protocol", IsRequired = false, DefaultValue = AuthProtocol.Undefined)]
-        public AuthProtocol Protocol
-        {
-            get
-            {
-                return (AuthProtocol)base["protocol"];
-            }
-        }
+        public AuthProtocol Protocol => (AuthProtocol)base["protocol"];
 
         [ConfigurationProperty("successUrl")]
-        public string SuccessUrl
-        {
-            get
-            {
-                return (string)base["successUrl"];
-            }
-        }
+        public string SuccessUrl => (string)base["successUrl"];
 
         [ConfigurationProperty("maintainUserLocation", DefaultValue = true)]
-        public bool MaintainUserLocation
-        {
-            get
-            {
-                return (bool)base["maintainUserLocation"];
-            }
-        }
+        public bool MaintainUserLocation => (bool)base["maintainUserLocation"];
 
         [ConfigurationProperty("userLocationStorageType", DefaultValue = UserLocationStorageType.State)]
-        public UserLocationStorageType UserLocationStorageType
-        {
-            get
-            {
-                return (UserLocationStorageType)base["userLocationStorageType"];
-            }
-        }
+        public UserLocationStorageType UserLocationStorageType => (UserLocationStorageType)base["userLocationStorageType"];
 
         [ConfigurationProperty("enabled", IsRequired = false, DefaultValue = true)]
-        public bool Enabled
-        {
-            get
-            {
-                return (bool)base["enabled"];
-            }
-        }
+        public bool Enabled => (bool)base["enabled"];
 
         public AuthServiceProvider AuthServiceProvider
         {

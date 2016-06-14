@@ -6,40 +6,16 @@ namespace SoftFluent.SocialEmailLogin.Configuration
     public class AuthenticationElement : ConfigurationElement
     {
         [ConfigurationProperty("serviceProviders", IsDefaultCollection = false, IsRequired = false)]
-        public virtual ServiceProviderElementCollection ServiceProviders
-        {
-            get
-            {
-                return (ServiceProviderElementCollection)this["serviceProviders"];
-            }
-        }
+        public virtual ServiceProviderElementCollection ServiceProviders => (ServiceProviderElementCollection)this["serviceProviders"];
 
         [ConfigurationProperty("providerNameComparison", DefaultValue = StringComparison.OrdinalIgnoreCase)]
-        public virtual StringComparison ProviderNameComparison
-        {
-            get
-            {
-                return (StringComparison)this["providerNameComparison"];
-            }
-        }
+        public virtual StringComparison ProviderNameComparison => (StringComparison)this["providerNameComparison"];
 
         [ConfigurationProperty("maximumRetryCount", DefaultValue = 10)]
-        public virtual int MaximumRetryCount
-        {
-            get
-            {
-                return (int)this["maximumRetryCount"];
-            }
-        }
-        
+        public virtual int MaximumRetryCount => (int)this["maximumRetryCount"];
+
         [ConfigurationProperty("retryInterval", DefaultValue = 50)]
-        public virtual int RetryInterval
-        {
-            get
-            {
-                return (int)this["retryInterval"];
-            }
-        }
+        public virtual int RetryInterval => (int)this["retryInterval"];
 
         public virtual AuthServiceProvider GetServiceProvider(string name)
         {

@@ -42,12 +42,6 @@ namespace SoftFluent.SocialEmailLogin.Configuration
         }
 
         [ConfigurationProperty("authentication", Options = ConfigurationPropertyOptions.IsRequired)]
-        public AuthenticationElement Authentication
-        {
-            get
-            {
-                return (AuthenticationElement)this["authentication"];
-            }
-        }
+        public AuthenticationElement Authentication => (AuthenticationElement)this["authentication"];
     }
 }

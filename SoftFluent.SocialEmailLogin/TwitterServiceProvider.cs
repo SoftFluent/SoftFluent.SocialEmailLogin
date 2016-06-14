@@ -58,9 +58,9 @@ namespace SoftFluent.SocialEmailLogin
             }
             catch (WebException we)
             {
-                string text = null;
                 if (we.Response != null)
                 {
+                    string text;
                     using (var reader = new StreamReader(we.Response.GetResponseStream()))
                     {
                         text = reader.ReadToEnd();

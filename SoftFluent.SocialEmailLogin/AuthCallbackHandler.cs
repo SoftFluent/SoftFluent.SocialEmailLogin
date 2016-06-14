@@ -11,13 +11,7 @@ namespace SoftFluent.SocialEmailLogin
 {
     public class AuthCallbackHandler : IHttpHandler
     {
-        public bool IsReusable
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public bool IsReusable => true;
 
         protected virtual AuthServiceProvider GetServiceProvider(string providerName)
         {
@@ -135,7 +129,7 @@ namespace SoftFluent.SocialEmailLogin
         {
             var ticket = new FormsAuthenticationTicket(2, userName, DateTime.Now, DateTime.Now.Add(FormsAuthentication.Timeout), createPersistentCookie, userData, FormsAuthentication.FormsCookiePath);
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
-            if (encryptedTicket == null || encryptedTicket.Length < 1)
+            if (string.IsNullOrEmpty(encryptedTicket))
                 throw new AuthException("OA0006: Failed to encrypt ticket.");
 
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);

@@ -5,7 +5,6 @@ namespace SoftFluent.SocialEmailLogin
 {
     public class UserData
     {
-        private readonly IDictionary<string, object> _data;
         private string _fullName;
 
         public UserData(IDictionary<string, object> data)
@@ -13,16 +12,10 @@ namespace SoftFluent.SocialEmailLogin
             if (data == null)
                 throw new ArgumentNullException(nameof(data));
 
-            _data = data;
+            Data = data;
         }
         
-        public IDictionary<string, object> Data
-        {
-            get
-            {
-                return _data;
-            }
-        }
+        public IDictionary<string, object> Data { get; }
 
         public string Email { get; set; }
         public string FirstName { get; set; }

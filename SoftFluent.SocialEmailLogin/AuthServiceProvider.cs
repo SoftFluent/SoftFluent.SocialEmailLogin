@@ -158,11 +158,7 @@ namespace SoftFluent.SocialEmailLogin
 
         protected virtual void OnAfterCreateAccessTokenOAuth20Headers(object sender, HeadersEventArgs e)
         {
-            var handler = AfterCreateLoginOAuth20Headers;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            AfterCreateAccessTokenOAuth20Headers?.Invoke(sender, e);
         }
 
         protected virtual void OnAfterCreateAccessTokenOAuth20Headers(IDictionary<string, string> headers)
@@ -228,12 +224,12 @@ namespace SoftFluent.SocialEmailLogin
                     {
                         if (accessToken.TryGetValue("token", out at))
                         {
-                            token = string.Format("{0}", at);
+                            token = $"{at}";
                         }
                     }
                     else
                     {
-                        token = string.Format("{0}", at);
+                        token = $"{at}";
                     }
                 }
             }
@@ -289,7 +285,7 @@ namespace SoftFluent.SocialEmailLogin
                 uriBuilder.Query = Extensions.BuildQueryString(queryStringValues);
             }
 
-            return uriBuilder.Uri.AbsoluteUri.ToString();
+            return uriBuilder.Uri.AbsoluteUri;
         }
 
         protected virtual HttpWebRequest CreateGetOAuth20Request(string accessToken)
@@ -338,11 +334,7 @@ namespace SoftFluent.SocialEmailLogin
 
         protected virtual void OnAfterCreateLoginOAuth20Headers(object sender, HeadersEventArgs e)
         {
-            var handler = AfterCreateLoginOAuth20Headers;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            AfterCreateLoginOAuth20Headers?.Invoke(sender, e);
         }
 
         protected virtual void OnAfterCreateLoginOAuth20Headers(IDictionary<string, string> headers)
@@ -427,7 +419,7 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual void SetOpenIdOAuthAttributes(IDictionary<string, string> headers)
         {
             headers.Add("openid.ax.type.email", "http://axschema.org/contact/email");
-            headers.Add("openid.ax.required", OpenIdOAuthScope == null ? "email" : OpenIdOAuthScope);
+            headers.Add("openid.ax.required", OpenIdOAuthScope ?? "email");
         }
 
         // http://openid.net/specs/openid-authentication-2_0.html#html_disco
@@ -630,9 +622,9 @@ namespace SoftFluent.SocialEmailLogin
             public int Compare(KeyValuePair<string, string> x, KeyValuePair<string, string> y)
             {
                 if (x.Key == y.Key)
-                    return string.Compare(x.Value, y.Value);
+                    return string.CompareOrdinal(x.Value, y.Value);
 
-                return string.Compare(x.Key, y.Key);
+                return string.CompareOrdinal(x.Key, y.Key);
             }
         }
 
@@ -666,7 +658,7 @@ namespace SoftFluent.SocialEmailLogin
             sb.Append(EncodeParameter(sparams));
 
             var hash = new HMACSHA1();
-            hash.Key = Encoding.ASCII.GetBytes(string.Format("{0}&{1}", EncodeParameter(ConsumerSecret), EncodeParameter(tokenSecret)));
+            hash.Key = Encoding.ASCII.GetBytes($"{EncodeParameter(ConsumerSecret)}&{EncodeParameter(tokenSecret)}");
             return Convert.ToBase64String(hash.ComputeHash(Encoding.ASCII.GetBytes(sb.ToString())));
         }
 

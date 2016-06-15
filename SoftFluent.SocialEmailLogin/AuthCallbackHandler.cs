@@ -115,6 +115,9 @@ namespace SoftFluent.SocialEmailLogin
             {
                 url = AuthServiceProvider.GetAbsoluteApplicationPath();
             }
+
+            url = HttpUtility.UrlDecode(url);
+
             context.Response.Redirect(url, false);
         }
 

@@ -162,9 +162,9 @@ legend {
     .socialLogin .t {
         background-position: -96px -78px;
     }
-    
+
     .socialLogin .l {
-        background-position: -194px 0;
+        background-position: -192px -78px;
     }
 
     .socialLogin .f:hover {
@@ -186,9 +186,25 @@ legend {
     .socialLogin .t:hover {
         background-position: -96px 0;
     }
-    
-    .socialLogin .l {
-        background-position: -192px -78px;
+
+    .socialLogin .l:hover {
+        background-position: -192px 0;
+    }
+
+    .socialLogin .yam {
+        background-position: -290px -118px;
+    }
+
+    .socialLogin .yam:hover {
+        background-position: -290px -78px;
+    }
+
+    .socialLogin .a {
+        background-position: -290px -40px;
+    }
+
+    .socialLogin .a:hover {
+        background-position: -290px 0px;
     }
 
 a:link, a:visited, a:active {

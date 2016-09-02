@@ -50,7 +50,8 @@
                     <asp:LinkButton ID="imgLoginYahoo" runat="server" CommandName="Yahoo" CssClass="y" OnClick="imgLogin_Click" Text="Yahoo" />
                     <asp:LinkButton ID="imgLoginTwitter" runat="server" CommandName="Twitter" CssClass="t" OnClick="imgLogin_Click" Text="Twitter" />
                     <asp:LinkButton ID="ImgLoginLinkedIn" runat="server" CommandName="LinkedIn" CssClass="l" OnClick="imgLogin_Click" Text="LinkedIn" />
-                    <asp:LinkButton ID="ImgLoginYammer" runat="server" CommandName="Yammer" OnClick="imgLogin_Click" Text="Yammer" />
+                    <asp:LinkButton ID="ImgLoginYammer" runat="server" CommandName="Yammer" class="yam" OnClick="imgLogin_Click" Text="Yammer" />
+                    <asp:LinkButton ID="ImgLoginAzureAD" runat="server" CommandName="AzureAD" class="a" OnClick="imgLogin_Click" Text="AzureAD" />
                 </div>
 
                 <% } %>

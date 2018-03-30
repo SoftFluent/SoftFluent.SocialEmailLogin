@@ -51,7 +51,7 @@ namespace SoftFluent.SocialEmailLogin
                 }
                 catch (Exception ex)
                 {
-                    if (!OnGetUserDataError(ex, attempt))
+                    if (!OnGetUserDataError(context, ex, attempt))
                         break;
 
                     attempt++;
@@ -63,17 +63,26 @@ namespace SoftFluent.SocialEmailLogin
             }
 
             if (userData == null)
-                return;
-
-            Authenticate(context, provider, loginOptions, userData);
+            {
+                Authenticate(context, provider, loginOptions);
+            }
+            else
+            {
+                Authenticate(context, provider, loginOptions, userData);
+            }
         }
 
-        protected virtual bool OnGetUserDataError(Exception ex, int attempt)
+        protected virtual bool OnGetUserDataError(HttpContext context, Exception ex, int attempt)
         {
             if (ex is WebException)
                 return true;
 
             return false;
+        }
+
+        protected virtual bool Authenticate(HttpContext context, AuthServiceProvider provider, AuthLoginOptions options)
+        {
+            return true;
         }
 
         protected virtual bool Authenticate(HttpContext context, AuthServiceProvider provider, AuthLoginOptions options, UserData userData)

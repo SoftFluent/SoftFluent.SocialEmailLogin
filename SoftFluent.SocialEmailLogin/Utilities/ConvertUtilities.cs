@@ -121,8 +121,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
             if (DateTimeOffset.TryParse(Convert.ToString(input, provider), provider, DateTimeStyles.None, out value))
                 return true;
 
-            DateTime dt;
-            if (TryConvert(input, provider, out dt))
+            if (TryConvert(input, provider, out DateTime dt))
             {
                 value = new DateTimeOffset(dt);
                 return true;
@@ -136,8 +135,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
             if (TimeSpan.TryParse(Convert.ToString(input, provider), provider, out value))
                 return true;
 
-            long l;
-            if (TryConvert(input, provider, out l))
+            if (TryConvert(input, provider, out long l))
             {
                 value = new TimeSpan(l);
                 return true;
@@ -151,8 +149,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
             value = IntPtr.Zero;
             if (IntPtr.Size == 4)
             {
-                int i;
-                if (TryConvert(input, provider, out i))
+                if (TryConvert(input, provider, out int i))
                 {
                     value = new IntPtr(i);
                     return true;
@@ -160,8 +157,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return false;
             }
 
-            long l;
-            if (TryConvert(input, provider, out l))
+            if (TryConvert(input, provider, out long l))
             {
                 value = new IntPtr(l);
                 return true;
@@ -171,8 +167,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out Guid value)
         {
-            byte[] inputBytes = input as byte[];
-            if (inputBytes != null)
+            if (input is byte[] inputBytes)
             {
                 if (inputBytes.Length != 16)
                 {
@@ -189,8 +184,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out ulong value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -213,8 +207,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out ushort value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -237,8 +230,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out decimal value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -261,8 +253,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out float value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -286,8 +277,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         private static bool TryConvert(object input, IFormatProvider provider, out double value)
         {
             value = 0;
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -310,8 +300,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out char value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -329,8 +318,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out DateTime value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -348,8 +336,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out uint value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -372,8 +359,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out byte value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -396,8 +382,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         private static bool TryConvert(object input, IFormatProvider provider, out sbyte value)
         {
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -421,8 +406,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         private static bool TryConvert(object input, IFormatProvider provider, out short value)
         {
             value = 0;
-            byte[] inputBytes = input as byte[];
-            if (inputBytes != null)
+            if (input is byte[] inputBytes)
             {
                 if (inputBytes.Length == 2)
                 {
@@ -432,8 +416,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return false;
             }
 
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -457,8 +440,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         private static bool TryConvert(object input, IFormatProvider provider, out int value)
         {
             value = 0;
-            byte[] inputBytes = input as byte[];
-            if (inputBytes != null)
+            if (input is byte[] inputBytes)
             {
                 if (inputBytes.Length == 4)
                 {
@@ -474,8 +456,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return true;
             }
 
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -499,8 +480,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         private static bool TryConvert(object input, IFormatProvider provider, out long value)
         {
             value = 0;
-            byte[] inputBytes = input as byte[];
-            if (inputBytes != null)
+            if (input is byte[] inputBytes)
             {
                 if (inputBytes.Length == 8)
                 {
@@ -516,8 +496,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return true;
             }
 
-            var ic = input as IConvertible;
-            if (ic != null)
+            if (input is IConvertible ic)
             {
                 try
                 {
@@ -541,8 +520,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         private static bool TryConvert(object input, IFormatProvider provider, out bool value)
         {
             value = false;
-            byte[] inputBytes = input as byte[];
-            if (inputBytes != null)
+            if (input is byte[] inputBytes)
             {
                 if (inputBytes.Length == 1)
                 {
@@ -552,8 +530,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 return false;
             }
 
-            object booll;
-            if (TryConvert(input, typeof(long), provider, out booll))
+            if (TryConvert(input, typeof(long), provider, out object booll))
             {
                 value = ((long)booll) != 0;
                 return true;
@@ -640,9 +617,8 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                     return true;
                 }
 
-                object vtValue;
                 Type vtType = conversionType.GetGenericArguments()[0];
-                if (TryConvert(input, vtType, provider, out vtValue))
+                if (TryConvert(input, vtType, provider, out object vtValue))
                 {
                     Type nt = typeof(Nullable<>).MakeGenericType(vtType);
                     value = Activator.CreateInstance(nt, vtValue);
@@ -826,8 +802,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                 case TypeCode.Object:
                     if (conversionType == typeof(Guid))
                     {
-                        Guid gValue;
-                        if (TryConvert(input, provider, out gValue))
+                        if (TryConvert(input, provider, out Guid gValue))
                         {
                             value = gValue;
                             return true;
@@ -836,8 +811,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
                     if (conversionType == typeof(IntPtr))
                     {
-                        IntPtr ptr;
-                        if (TryConvert(input, provider, out ptr))
+                        if (TryConvert(input, provider, out IntPtr ptr))
                         {
                             value = ptr;
                             return true;
@@ -846,8 +820,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
                     if (conversionType == typeof(Version))
                     {
-                        Version version;
-                        if (Version.TryParse(Convert.ToString(input, provider), out version))
+                        if (Version.TryParse(Convert.ToString(input, provider), out Version version))
                         {
                             value = version;
                             return true;
@@ -856,8 +829,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
                     if (conversionType == typeof(IPAddress))
                     {
-                        IPAddress address;
-                        if (IPAddress.TryParse(Convert.ToString(input, provider), out address))
+                        if (IPAddress.TryParse(Convert.ToString(input, provider), out IPAddress address))
                         {
                             value = address;
                             return true;
@@ -866,8 +838,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
                     if (conversionType == typeof(DateTimeOffset))
                     {
-                        DateTimeOffset dto;
-                        if (TryConvert(input, provider, out dto))
+                        if (TryConvert(input, provider, out DateTimeOffset dto))
                         {
                             value = dto;
                             return true;
@@ -876,8 +847,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
                     if (conversionType == typeof(TimeSpan))
                     {
-                        TimeSpan ts;
-                        if (TryConvert(input, provider, out ts))
+                        if (TryConvert(input, provider, out TimeSpan ts))
                         {
                             value = ts;
                             return true;
@@ -954,8 +924,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
                                 }
                                 catch
                                 {
-                                    byte[] ib;
-                                    if (TryConvert((string)input, out ib))
+                                    if (TryConvert((string)input, out byte[] ib))
                                     {
                                         value = ib;
                                         return true;
@@ -1050,8 +1019,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
 
         public static T ChangeType<T>(object input, IFormatProvider provider, T defaultValue)
         {
-            object result;
-            if (TryConvert(input, typeof(T), provider, out result))
+            if (TryConvert(input, typeof(T), provider, out object result))
                 return (T)result;
 
             return defaultValue;

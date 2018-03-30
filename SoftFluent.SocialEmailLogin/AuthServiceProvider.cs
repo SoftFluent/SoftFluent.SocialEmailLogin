@@ -174,11 +174,13 @@ namespace SoftFluent.SocialEmailLogin
             if (string.IsNullOrEmpty(code))
                 return null;
 
-            var headers = new Dictionary<string, string>();
-            headers.Add("client_id", ConsumerKey);
-            headers.Add("client_secret", ConsumerSecret);
-            headers.Add("code", code);
-            headers.Add("grant_type", "authorization_code");
+            var headers = new Dictionary<string, string>
+            {
+                { "client_id", ConsumerKey },
+                { "client_secret", ConsumerSecret },
+                { "code", code },
+                { "grant_type", "authorization_code" }
+            };
             string state = HttpContext.Current.Request.QueryString["state"];
             if (!string.IsNullOrWhiteSpace(state))
             {
@@ -206,8 +208,7 @@ namespace SoftFluent.SocialEmailLogin
             {
                 request = (HttpWebRequest)WebRequest.Create(AccessTokenUrl + "?" + SerializeOAuthHeaders(headers, "GET", true));
             }
-            string ct;
-            string result = Execute(request, out ct);
+            string result = Execute(request, out string ct);
             if (string.IsNullOrEmpty(result))
                 return null;
 
@@ -216,11 +217,9 @@ namespace SoftFluent.SocialEmailLogin
                 (ct.IndexOf("json", StringComparison.OrdinalIgnoreCase) >= 0 || ct.IndexOf("javascript", StringComparison.OrdinalIgnoreCase) >= 0))
             {
                 IDictionary<string, object> res = Extensions.JsonDeserialize(result);
-                object at;
-                if (res != null && res.TryGetValue("access_token", out at))
+                if (res != null && res.TryGetValue("access_token", out object at))
                 {
-                    var accessToken = at as IDictionary<string, object>;
-                    if (accessToken != null) // Yammer
+                    if (at is IDictionary<string, object> accessToken) // Yammer
                     {
                         if (accessToken.TryGetValue("token", out at))
                         {
@@ -269,17 +268,21 @@ namespace SoftFluent.SocialEmailLogin
 
                 if (MaintainUserLocation)
                 {
-                    string urlParameterValue = HttpContext.Current.Request.QueryString[UrlParameter];
-                    if (!IsUrlLocalToHost(urlParameterValue))
+                    string returnUrl = HttpContext.Current.Request.RawUrl;
+                    if (!LoginOptions.HasFlag(AuthLoginOptions.StayOnCurrentPage) || !IsUrlLocalToHost(returnUrl))
                     {
-                        urlParameterValue = HttpContext.Current.Request.QueryString[ReturnUrlParameter];
+                        returnUrl = HttpContext.Current.Request.QueryString[UrlParameter];
                     }
-                    if (!IsUrlLocalToHost(urlParameterValue))
+                    if (!IsUrlLocalToHost(returnUrl))
                     {
-                        urlParameterValue = SuccessUrl;
+                        returnUrl = HttpContext.Current.Request.QueryString[ReturnUrlParameter];
+                    }
+                    if (!IsUrlLocalToHost(returnUrl))
+                    {
+                        returnUrl = SuccessUrl;
                     }
 
-                    queryStringValues[UrlParameter] = urlParameterValue;
+                    queryStringValues[UrlParameter] = returnUrl;
                 }
 
                 uriBuilder.Query = Extensions.BuildQueryString(queryStringValues);
@@ -297,8 +300,7 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual UserData GetUserData(string accessToken)
         {
             HttpWebRequest request = CreateGetOAuth20Request(accessToken);
-            string ct;
-            string result = Execute(request, out ct);
+            string result = Execute(request, out string ct);
 
             return GetUserData(Extensions.JsonDeserialize(result));
         }
@@ -345,9 +347,11 @@ namespace SoftFluent.SocialEmailLogin
         protected virtual void LoginOAuth20()
         {
             // http://openid.net/specs/openid-authentication-2_0.html
-            var headers = new Dictionary<string, string>();
-            headers.Add("client_id", ConsumerKey);
-            headers.Add("response_type", OAuth2ResponseType);
+            var headers = new Dictionary<string, string>
+            {
+                { "client_id", ConsumerKey },
+                { "response_type", OAuth2ResponseType }
+            };
             if (!string.IsNullOrEmpty(Scope))
             {
                 headers.Add("scope", Scope);
@@ -361,10 +365,13 @@ namespace SoftFluent.SocialEmailLogin
 
                 if (MaintainUserLocation)
                 {
-                    string ru = HttpContext.Current.Request.QueryString[ReturnUrlParameter];
-                    if (IsUrlLocalToHost(ru))
+                    if (LoginOptions.HasFlag(AuthLoginOptions.StayOnCurrentPage) && IsUrlLocalToHost(HttpContext.Current.Request.RawUrl))
                     {
-                        state[UrlParameter] = ru;
+                        state[UrlParameter] = HttpContext.Current.Request.RawUrl;
+                    }
+                    else if (IsUrlLocalToHost(HttpContext.Current.Request.QueryString[ReturnUrlParameter]))
+                    {
+                        state[UrlParameter] = HttpContext.Current.Request.QueryString[ReturnUrlParameter];
                     }
                     else if (IsUrlLocalToHost(SuccessUrl))
                     {
@@ -372,7 +379,6 @@ namespace SoftFluent.SocialEmailLogin
                     }
                 }
             }
-
 
             if (state.Count > 0)
             {
@@ -394,19 +400,21 @@ namespace SoftFluent.SocialEmailLogin
             }
 
             // http://openid.net/specs/openid-authentication-2_0.html
-            var headers = new Dictionary<string, string>();
-            headers.Add("openid.ns", "http://specs.openid.net/auth/2.0");
-            headers.Add("openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select");
-            headers.Add("openid.identity", "http://specs.openid.net/auth/2.0/identifier_select");
-            headers.Add("openid.return_to", GetRedirectUri());
-            headers.Add("openid.realm", GetAbsoluteApplicationPath());
-            headers.Add("openid.mode", "checkid_setup");
-            headers.Add("openid.ns.pape", "http://specs.openid.net/extensions/pape/1.0");
-            headers.Add("openid.ns.max_auth_age", "0");
-            headers.Add("openid.ns.ax", "http://openid.net/srv/ax/1.0");
+            var headers = new Dictionary<string, string>
+            {
+                { "openid.ns", "http://specs.openid.net/auth/2.0" },
+                { "openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select" },
+                { "openid.identity", "http://specs.openid.net/auth/2.0/identifier_select" },
+                { "openid.return_to", GetRedirectUri() },
+                { "openid.realm", GetAbsoluteApplicationPath() },
+                { "openid.mode", "checkid_setup" },
+                { "openid.ns.pape", "http://specs.openid.net/extensions/pape/1.0" },
+                { "openid.ns.max_auth_age", "0" },
+                { "openid.ns.ax", "http://openid.net/srv/ax/1.0" },
 
-            // http://openid.net/specs/openid-attribute-exchange-1_0.html
-            headers.Add("openid.ax.mode", "fetch_request");
+                // http://openid.net/specs/openid-attribute-exchange-1_0.html
+                { "openid.ax.mode", "fetch_request" }
+            };
             SetOpenIdOAuthAttributes(headers);
 
             // oauth
@@ -442,8 +450,7 @@ namespace SoftFluent.SocialEmailLogin
 
         private static string Execute(HttpWebRequest request)
         {
-            string ct;
-            return Execute(request, out ct);
+            return Execute(request, out string ct);
         }
 
         private static string Execute(HttpWebRequest request, out string contentType)
@@ -523,13 +530,15 @@ namespace SoftFluent.SocialEmailLogin
         {
             string method = "POST";
 
-            var headers = new Dictionary<string, string>();
-            headers["oauth_consumer_key"] = ConsumerKey;
-            headers["oauth_signature_method"] = "HMAC-SHA1";
-            headers["oauth_timestamp"] = BuildOAuthTimestamp();
-            headers["oauth_nonce"] = BuildNonce();
-            headers["oauth_version"] = "1.0";
-            headers["oauth_callback"] = EncodeParameter(GetRedirectUri());
+            var headers = new Dictionary<string, string>
+            {
+                ["oauth_consumer_key"] = ConsumerKey,
+                ["oauth_signature_method"] = "HMAC-SHA1",
+                ["oauth_timestamp"] = BuildOAuthTimestamp(),
+                ["oauth_nonce"] = BuildNonce(),
+                ["oauth_version"] = "1.0",
+                ["oauth_callback"] = EncodeParameter(GetRedirectUri())
+            };
             headers["oauth_signature"] = EncodeParameter(SignOAuthRequest(method, RequestTokenUrl, headers, null));
             HttpWebRequest request;
             if (method == "POST")
@@ -657,8 +666,10 @@ namespace SoftFluent.SocialEmailLogin
             sb.Append('&');
             sb.Append(EncodeParameter(sparams));
 
-            var hash = new HMACSHA1();
-            hash.Key = Encoding.ASCII.GetBytes($"{EncodeParameter(ConsumerSecret)}&{EncodeParameter(tokenSecret)}");
+            var hash = new HMACSHA1
+            {
+                Key = Encoding.ASCII.GetBytes($"{EncodeParameter(ConsumerSecret)}&{EncodeParameter(tokenSecret)}")
+            };
             return Convert.ToBase64String(hash.ComputeHash(Encoding.ASCII.GetBytes(sb.ToString())));
         }
 

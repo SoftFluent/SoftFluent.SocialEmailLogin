@@ -99,8 +99,7 @@ namespace SoftFluent.SocialEmailLogin
 
             if (string.IsNullOrEmpty(url))
             {
-                string providerName = GetValue(context, state, AuthServiceProvider.ProviderParameter) as string;
-                if (providerName != null)
+                if (GetValue(context, state, AuthServiceProvider.ProviderParameter) is string providerName)
                 {
                     AuthenticationElement authenticationElement = GetAuthenticationElement();
                     AuthServiceProvider provider = GetServiceProvider(providerName);
@@ -135,9 +134,11 @@ namespace SoftFluent.SocialEmailLogin
             if (string.IsNullOrEmpty(encryptedTicket))
                 throw new AuthException("OA0006: Failed to encrypt ticket.");
 
-            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            cookie.HttpOnly = httpOnly;
-            cookie.Path = FormsAuthentication.FormsCookiePath;
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket)
+            {
+                HttpOnly = httpOnly,
+                Path = FormsAuthentication.FormsCookiePath
+            };
 
             if (FormsAuthentication.RequireSSL)
             {

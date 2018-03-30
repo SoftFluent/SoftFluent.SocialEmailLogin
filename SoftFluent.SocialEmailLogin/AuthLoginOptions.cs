@@ -8,5 +8,6 @@ namespace SoftFluent.SocialEmailLogin
         None = 0x0,
         Device = 0x1,
         RegisterApplication = 0x2,
+        StayOnCurrentPage = 0x4,
     }
 }

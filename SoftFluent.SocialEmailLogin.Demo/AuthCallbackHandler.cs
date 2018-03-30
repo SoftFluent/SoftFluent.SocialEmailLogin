@@ -27,8 +27,10 @@ namespace SoftFluent.SocialEmailLogin.Demo
                 HttpCookie authCookie = GetAuthCookie(userName, true, false);
                 context.Response.Cookies.Add(authCookie);
 
-                HttpCookie emailCookie = new HttpCookie(".EMAIL", userName);
-                emailCookie.HttpOnly = false;
+                HttpCookie emailCookie = new HttpCookie(".EMAIL", userName)
+                {
+                    HttpOnly = false
+                };
                 context.Response.Cookies.Add(emailCookie);
             }
             else
@@ -50,9 +52,11 @@ namespace SoftFluent.SocialEmailLogin.Demo
             if (string.IsNullOrEmpty(encryptedTicket))
                 throw new AuthException("OA0006: Failed to encrypt ticket.");
 
-            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-            cookie.HttpOnly = httpOnly;
-            cookie.Path = FormsAuthentication.FormsCookiePath;
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket)
+            {
+                HttpOnly = httpOnly,
+                Path = FormsAuthentication.FormsCookiePath
+            };
 
             if (FormsAuthentication.RequireSSL)
             {

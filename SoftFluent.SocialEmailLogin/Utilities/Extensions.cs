@@ -70,8 +70,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
             if (dict == null)
                 return defaultValue;
 
-            TValue v;
-            if (dict.TryGetValue(name, out v))
+            if (dict.TryGetValue(name, out TValue v))
                 return ConvertUtilities.ChangeType(v, defaultValue);
 
             return defaultValue;
@@ -111,8 +110,7 @@ namespace SoftFluent.SocialEmailLogin.Utilities
         public static T GetQueryStringParameter<T>(string uri, string parameterName, T defaultValue)
         {
             var parameters = ParseQueryString(uri);
-            string value;
-            if (parameters.TryGetValue(parameterName, out value))
+            if (parameters.TryGetValue(parameterName, out string value))
                 return ConvertUtilities.ChangeType(value, defaultValue);
 
             return defaultValue;

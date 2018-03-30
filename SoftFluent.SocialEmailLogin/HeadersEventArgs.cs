@@ -8,14 +8,8 @@ namespace SoftFluent.SocialEmailLogin
     {
         public HeadersEventArgs(HttpContext context, IDictionary<string, string> headers)
         {
-            if (context == null)
-                throw new ArgumentNullException("context");
-
-            if (headers == null)
-                throw new ArgumentNullException("headers");
-
-            Context = context;
-            Headers = headers;
+            Context = context ?? throw new ArgumentNullException(nameof(context));
+            Headers = headers ?? throw new ArgumentNullException(nameof(headers));
         }
 
         public HttpContext Context { get; private set; }

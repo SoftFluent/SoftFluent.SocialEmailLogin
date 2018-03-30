@@ -75,10 +75,10 @@ namespace SoftFluent.SocialEmailLogin.Demo
             return cookie;
         }
 
-        protected override bool OnGetUserDataError(Exception ex, int attempt)
+        protected override bool OnGetUserDataError(HttpContext context, Exception ex, int attempt)
         {
             Trace.WriteLine($"Attempt {attempt}: {ex}");
-            return base.OnGetUserDataError(ex, attempt);
+            return base.OnGetUserDataError(context, ex, attempt);
         }
     }
 }

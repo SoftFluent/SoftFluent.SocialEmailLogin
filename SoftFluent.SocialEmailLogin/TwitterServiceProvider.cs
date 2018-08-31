@@ -26,14 +26,16 @@ namespace SoftFluent.SocialEmailLogin
 
             string method = "POST";
 
-            var headers = new Dictionary<string, string>();
-            headers["oauth_consumer_key"] = ConsumerKey;
-            headers["oauth_signature_method"] = "HMAC-SHA1";
-            headers["oauth_timestamp"] = BuildOAuthTimestamp();
-            headers["oauth_nonce"] = BuildNonce();
-            headers["oauth_version"] = "1.0";
-            headers["oauth_token"] = context.Request["oauth_token"];
-            headers["oauth_verifier"] = context.Request["oauth_verifier"];
+            var headers = new Dictionary<string, string>
+            {
+                ["oauth_consumer_key"] = ConsumerKey,
+                ["oauth_signature_method"] = "HMAC-SHA1",
+                ["oauth_timestamp"] = BuildOAuthTimestamp(),
+                ["oauth_nonce"] = BuildNonce(),
+                ["oauth_version"] = "1.0",
+                ["oauth_token"] = context.Request["oauth_token"],
+                ["oauth_verifier"] = context.Request["oauth_verifier"]
+            };
             headers["oauth_signature"] = EncodeParameter(SignOAuthRequest(method, AccessTokenUrl, headers, null));
 
             var request = (HttpWebRequest)WebRequest.Create(AccessTokenUrl);

@@ -29,8 +29,7 @@ namespace SoftFluent.SocialEmailLogin
                 throw new ArgumentNullException(nameof(context));
 
             var state = ReadStateQueryParameter(context);
-            string providerName = GetValue(context, state, AuthServiceProvider.ProviderParameter) as string;
-            if (providerName == null)
+            if (!(GetValue(context, state, AuthServiceProvider.ProviderParameter) is string providerName))
                 return;
 
             AuthenticationElement authenticationElement = GetAuthenticationElement();

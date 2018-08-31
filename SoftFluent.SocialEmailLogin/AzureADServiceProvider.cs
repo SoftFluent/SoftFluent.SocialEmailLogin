@@ -36,16 +36,13 @@ namespace SoftFluent.SocialEmailLogin
                 userData.Name = data["displayName"] as string;
             }
 
-            if (string.IsNullOrWhiteSpace(userData.Name))
+            if (data.ContainsKey("givenName"))
             {
-                if (data.ContainsKey("givenName"))
-                {
-                    userData.FirstName = data["givenName"] as string;
-                }
-                if (data.ContainsKey("surname"))
-                {
-                    userData.LastName = data["surname"] as string;
-                }
+                userData.FirstName = data["givenName"] as string;
+            }
+            if (data.ContainsKey("surname"))
+            {
+                userData.LastName = data["surname"] as string;
             }
 
             if (data.ContainsKey("mail"))

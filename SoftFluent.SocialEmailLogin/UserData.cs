@@ -9,10 +9,7 @@ namespace SoftFluent.SocialEmailLogin
 
         public UserData(IDictionary<string, object> data)
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
-
-            Data = data;
+            Data = data ?? throw new ArgumentNullException(nameof(data));
         }
         
         public IDictionary<string, object> Data { get; }

@@ -1,5 +1,4 @@
 mkdir package\lib
-mkdir package\lib
 mkdir package\lib\net40
 
 copy "..\SoftFluent.SocialEmailLogin\bin\Release\SoftFluent.SocialEmailLogin.dll" "package\lib\net40"

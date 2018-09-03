@@ -10,7 +10,7 @@ namespace SoftFluent.SocialEmailLogin
             UserLocationStorageType = UserLocationStorageType.State;
             UserAuthorizationUrl = "https://www.facebook.com/dialog/oauth";
             AccessTokenUrl = "https://graph.facebook.com/oauth/access_token";
-            ProfileUrl = "https://graph.facebook.com/v2.12/me?fields=id,name,email"; // https://developers.facebook.com/docs/graph-api/reference/user
+            ProfileUrl = "https://graph.facebook.com/v2.12/me?fields=id,name,first_name,last_name,picture,email"; // https://developers.facebook.com/docs/graph-api/reference/user
 
             // http://stackoverflow.com/questions/5625532/facebook-c-sharp-sdk-get-users-email
             Scope = "email,public_profile";            

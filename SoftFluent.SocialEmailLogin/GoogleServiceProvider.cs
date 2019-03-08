@@ -8,9 +8,9 @@ namespace SoftFluent.SocialEmailLogin
         {
             Protocol = AuthProtocol.OAuth20;
             UserLocationStorageType = UserLocationStorageType.State;
-            UserAuthorizationUrl = "https://accounts.google.com/o/oauth2/auth";
-            AccessTokenUrl = "https://www.googleapis.com/oauth2/v3/token";
-            ProfileUrl = "https://www.googleapis.com/plus/v1/people/me/openIdConnect";
+            UserAuthorizationUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+            AccessTokenUrl = "https://oauth2.googleapis.com/token";
+            ProfileUrl = "https://openidconnect.googleapis.com/v1/userinfo";
             OAuth2AccessTokenMethod = "POST";
 
             Scope = "email profile";

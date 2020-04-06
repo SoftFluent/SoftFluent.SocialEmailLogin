@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>SocialEmailLogin</id>
-    <version>1.0.11.8</version>
+    <version>1.0.12.1</version>
     <authors>SoftFluent</authors>
     <owners>SoftFluent</owners>
     <license type="expression">MIT</license>
@@ -12,7 +12,7 @@
     <description>A simple (unbloated software guarantee!) yet powerfull library allowing the user to login via social networks such as Facebook, Google, Yahoo, Microsoft Live, Office 365, Azure AD, LinkedIn and Twitter.</description>
     <releaseNotes></releaseNotes>
     <language>en-US</language>
-    <copyright>Copyright (C) 2005-2019 SoftFluent S.A.S. All rights reserved.</copyright>
+    <copyright>Copyright (C) 2005-2020 SoftFluent S.A.S. All rights reserved.</copyright>
     <tags>Utility Social Email Login Network</tags>
   </metadata>
 </package>
